@@ -1,14 +1,30 @@
 package com.gamerate.config;
 
+import com.gamerate.interceptor.LoginInterceptor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    private final LoginInterceptor loginInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // JWT 登录鉴权拦截器后续在用户模块实现时注册。
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns("/api/**")
+                .excludePathPatterns(
+                        "/api/health",
+                        "/api/user/register",
+                        "/api/user/login",
+                        "/doc.html",
+                        "/webjars/**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-resources/**"
+                );
     }
 }
