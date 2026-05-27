@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gamerate-backend
+  profiles:
+    active: local
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
