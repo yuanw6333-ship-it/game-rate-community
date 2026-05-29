@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `last_sync_time` DATETIME DEFAULT NULL COMMENT '最近同步外部数据时间',
   `average_score` DECIMAL(3,1) NOT NULL DEFAULT 0.0 COMMENT '站内平均评分，0-10',
   `rating_count` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '评分人数',
+  `view_count` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '浏览数量',
   `comment_count` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '评论数量',
   `favorite_count` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '收藏数量',
   `hot_score` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '热度分',
@@ -112,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   KEY `idx_game_status` (`status`),
   KEY `idx_game_average_score` (`average_score`),
   KEY `idx_game_hot_score` (`hot_score`),
+  KEY `idx_game_view_count` (`view_count`),
   KEY `idx_game_release_date` (`release_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='游戏表';
 
