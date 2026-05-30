@@ -1,5 +1,51 @@
 # CHANGELOG
 
+## v0.4.0 - RAWG 数据导入模块
+
+### Added
+
+- 新增 RAWG 配置读取 `RawgProperties` 和 `RestTemplate` Bean。
+- 新增 `RawgClient`，封装 RAWG 搜索和详情请求逻辑。
+- 新增后台 RAWG 搜索接口 `GET /api/admin/rawg/search`。
+- 新增后台 RAWG 详情预览接口 `GET /api/admin/rawg/games/{rawgId}`。
+- 新增后台 RAWG 导入接口 `POST /api/admin/rawg/import`。
+- 新增 RAWG DTO、VO、Service 和后台 Controller。
+- 更新接口设计文档和测试记录。
+
+### Changed
+
+- `application-local.yml` 和 `application-prod.yml` 增加 RAWG 配置占位，真实 API Key 通过环境变量 `RAWG_API_KEY` 提供。
+- 保留 RAWG 数据导入模块。由于本地网络无法连接 `api.rawg.io:443`，暂缓联调。
+- 新增 10 条手动游戏测试数据，支持后续评分、评论、收藏模块开发。
+
+### Fixed
+
+- 移除本地配置文件中的真实 RAWG API Key，避免密钥写入项目文件。
+- 增加 RAWG 请求 URL 脱敏日志，仅显示 API Key 是否存在。
+- 细化 RAWG 网络超时、客户端错误、服务端错误和通用请求异常提示。
+- 将 RAWG 请求连接超时和读取超时统一设置为 10 秒。
+
+## v0.3.0 - 游戏基础模块
+
+### Added
+
+- 新增分类、平台、游戏实体、Mapper、Service、VO、DTO 和 Controller。
+- 新增用户端分类列表接口 `GET /api/categories`。
+- 新增用户端平台列表接口 `GET /api/platforms`。
+- 新增用户端游戏分页列表接口 `GET /api/games`。
+- 新增用户端游戏详情接口 `GET /api/games/{id}`，查询详情时浏览量加 1。
+- 新增后台游戏分页、新增、修改、删除或下架接口。
+- 新增游戏基础模块接口文档和测试记录。
+
+### Changed
+
+- 后台游戏接口接入登录拦截。
+- 游戏热度排序按浏览数、收藏数、评论数综合排序。
+
+### Fixed
+
+- 暂无
+
 ## v0.1.0 - 项目初始化
 
 ### Added

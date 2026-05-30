@@ -15,6 +15,8 @@ public class GameQueryDTO {
 
     private Long platformId;
 
+    private Integer status;
+
     private String sort = "default";
 
     @Min(value = 1, message = "pageNum must be greater than 0")

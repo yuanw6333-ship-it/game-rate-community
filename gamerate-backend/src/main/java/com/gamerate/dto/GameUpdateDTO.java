@@ -3,8 +3,6 @@ package com.gamerate.dto;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -14,7 +12,6 @@ import java.time.LocalDate;
 @Data
 public class GameUpdateDTO {
 
-    @NotBlank(message = "game name cannot be blank")
     @Size(max = 100, message = "game name length cannot exceed 100")
     private String name;
 
@@ -31,10 +28,8 @@ public class GameUpdateDTO {
 
     private LocalDate releaseDate;
 
-    @NotNull(message = "categoryId cannot be null")
     private Long categoryId;
 
-    @NotNull(message = "platformId cannot be null")
     private Long platformId;
 
     @Size(max = 30, message = "sourceType length cannot exceed 30")

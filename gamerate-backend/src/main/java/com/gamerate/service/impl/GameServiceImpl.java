@@ -146,6 +146,8 @@ public class GameServiceImpl extends ServiceImpl<GameMapper, Game> implements Ga
         LambdaQueryWrapper<Game> wrapper = new LambdaQueryWrapper<>();
         if (!admin) {
             wrapper.eq(Game::getStatus, STATUS_ENABLED);
+        } else if (queryDTO.getStatus() != null) {
+            wrapper.eq(Game::getStatus, queryDTO.getStatus());
         }
         if (StringUtils.hasText(queryDTO.getKeyword())) {
             String keyword = queryDTO.getKeyword().trim();
@@ -169,16 +171,18 @@ public class GameServiceImpl extends ServiceImpl<GameMapper, Game> implements Ga
         switch (sortValue) {
             case SORT_LATEST -> wrapper.orderByDesc(Game::getReleaseDate).orderByDesc(Game::getCreateTime);
             case SORT_SCORE -> wrapper.orderByDesc(Game::getAverageScore).orderByDesc(Game::getRatingCount);
-            case SORT_HOT -> wrapper.orderByDesc(Game::getHotScore).orderByDesc(Game::getViewCount);
+            case SORT_HOT -> wrapper.orderByDesc(Game::getViewCount)
+                    .orderByDesc(Game::getFavoriteCount)
+                    .orderByDesc(Game::getCommentCount);
             default -> wrapper.orderByDesc(Game::getCreateTime).orderByDesc(Game::getId);
         }
     }
 
     private void validateCategoryAndPlatform(Long categoryId, Long platformId) {
-        if (categoryService.getById(categoryId) == null) {
+        if (categoryId != null && categoryService.getById(categoryId) == null) {
             throw new BusinessException("Game category does not exist");
         }
-        if (platformService.getById(platformId) == null) {
+        if (platformId != null && platformService.getById(platformId) == null) {
             throw new BusinessException("Game platform does not exist");
         }
     }
@@ -203,22 +207,57 @@ public class GameServiceImpl extends ServiceImpl<GameMapper, Game> implements Ga
     }
 
     private void copyUpdateFields(GameUpdateDTO dto, Game game) {
-        game.setName(dto.getName().trim());
-        game.setOriginalName(trimToNull(dto.getOriginalName()));
-        game.setDescription(dto.getDescription());
-        game.setDeveloper(trimToNull(dto.getDeveloper()));
-        game.setPublisher(trimToNull(dto.getPublisher()));
-        game.setReleaseDate(dto.getReleaseDate());
-        game.setCategoryId(dto.getCategoryId());
-        game.setPlatformId(dto.getPlatformId());
-        game.setSourceType(StringUtils.hasText(dto.getSourceType()) ? dto.getSourceType().trim() : DEFAULT_SOURCE_TYPE);
-        game.setSourceId(trimToNull(dto.getSourceId()));
-        game.setSourceUrl(trimToNull(dto.getSourceUrl()));
-        game.setSteamAppId(dto.getSteamAppId());
-        game.setCoverUrl(trimToNull(dto.getCoverUrl()));
-        game.setBackgroundUrl(trimToNull(dto.getBackgroundUrl()));
-        game.setRawgRating(dto.getRawgRating());
-        game.setMetacriticScore(dto.getMetacriticScore());
+        if (dto.getName() != null) {
+            if (!StringUtils.hasText(dto.getName())) {
+                throw new BusinessException("Game name cannot be blank");
+            }
+            game.setName(dto.getName().trim());
+        }
+        if (dto.getOriginalName() != null) {
+            game.setOriginalName(trimToNull(dto.getOriginalName()));
+        }
+        if (dto.getDescription() != null) {
+            game.setDescription(dto.getDescription());
+        }
+        if (dto.getDeveloper() != null) {
+            game.setDeveloper(trimToNull(dto.getDeveloper()));
+        }
+        if (dto.getPublisher() != null) {
+            game.setPublisher(trimToNull(dto.getPublisher()));
+        }
+        if (dto.getReleaseDate() != null) {
+            game.setReleaseDate(dto.getReleaseDate());
+        }
+        if (dto.getCategoryId() != null) {
+            game.setCategoryId(dto.getCategoryId());
+        }
+        if (dto.getPlatformId() != null) {
+            game.setPlatformId(dto.getPlatformId());
+        }
+        if (dto.getSourceType() != null) {
+            game.setSourceType(StringUtils.hasText(dto.getSourceType()) ? dto.getSourceType().trim() : DEFAULT_SOURCE_TYPE);
+        }
+        if (dto.getSourceId() != null) {
+            game.setSourceId(trimToNull(dto.getSourceId()));
+        }
+        if (dto.getSourceUrl() != null) {
+            game.setSourceUrl(trimToNull(dto.getSourceUrl()));
+        }
+        if (dto.getSteamAppId() != null) {
+            game.setSteamAppId(dto.getSteamAppId());
+        }
+        if (dto.getCoverUrl() != null) {
+            game.setCoverUrl(trimToNull(dto.getCoverUrl()));
+        }
+        if (dto.getBackgroundUrl() != null) {
+            game.setBackgroundUrl(trimToNull(dto.getBackgroundUrl()));
+        }
+        if (dto.getRawgRating() != null) {
+            game.setRawgRating(dto.getRawgRating());
+        }
+        if (dto.getMetacriticScore() != null) {
+            game.setMetacriticScore(dto.getMetacriticScore());
+        }
         if (dto.getStatus() != null) {
             game.setStatus(dto.getStatus());
         }
