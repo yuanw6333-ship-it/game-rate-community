@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.5.0 - 游戏评分模块
+
+### Added
+
+- 新增游戏评分实体、Mapper、Service、DTO、VO 和 Controller。
+- 新增提交或修改评分接口 `POST /api/ratings`。
+- 新增查询当前用户指定游戏评分接口 `GET /api/ratings/game/{gameId}/me`。
+- 新增分页查询我的评分记录接口 `GET /api/ratings/me`。
+- 新增评分模块接口文档和测试记录。
+
+### Changed
+
+- 评分接口接入登录拦截，用户 ID 统一从 JWT 登录上下文获取。
+- 新增或修改评分后，从 `game_rating` 表重新聚合计算 `average_score` 和 `rating_count`，并同步更新 `game` 表。
+
+### Fixed
+
+- 通过业务判断和数据库唯一索引共同防止同一用户重复评分同一个游戏。
+
 ## v0.4.0 - RAWG 数据导入模块
 
 ### Added

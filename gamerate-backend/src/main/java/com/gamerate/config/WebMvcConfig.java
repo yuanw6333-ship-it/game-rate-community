@@ -18,6 +18,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns(
                         "/api/user/profile",
                         "/api/user/profile/**",
+                        "/api/ratings",
+                        "/api/ratings/**",
                         "/api/admin/**"
                 )
                 .excludePathPatterns(
