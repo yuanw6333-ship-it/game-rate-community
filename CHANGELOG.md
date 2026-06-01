@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.6.0 - 游戏评论模块
+
+### Added
+
+- 新增游戏评论实体、Mapper、Service、DTO、VO 和 Controller。
+- 新增提交评论接口 `POST /api/comments`。
+- 新增删除自己的评论接口 `DELETE /api/comments/{commentId}`。
+- 新增分页查询游戏评论接口 `GET /api/comments/game/{gameId}`。
+- 新增评论模块接口文档和测试记录。
+
+### Changed
+
+- 评论接口接入登录拦截，用户 ID 统一从 JWT 登录上下文获取。
+- 新增或删除评论后，根据有效评论记录重新统计并同步更新 `game.comment_count`。
+
+### Pending
+
+- 当前项目尚未实现管理员登录和管理员身份上下文。管理员删除任意评论将在管理员鉴权模块完成后接入。
+
 ## v0.5.0 - 游戏评分模块
 
 ### Added
