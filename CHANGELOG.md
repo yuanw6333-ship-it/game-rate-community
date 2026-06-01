@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## v0.7.0 - 游戏收藏模块
+
+### Added
+
+- 新增游戏收藏实体、Mapper、Service、VO 和 Controller。
+- 新增收藏游戏接口 `POST /api/favorites/{gameId}`。
+- 新增取消收藏接口 `DELETE /api/favorites/{gameId}`。
+- 新增查询收藏状态接口 `GET /api/favorites/{gameId}/status`。
+- 新增分页查询我的收藏列表接口 `GET /api/favorites/me`。
+- 新增收藏模块接口文档和测试记录。
+
+### Changed
+
+- 收藏接口接入登录拦截，用户 ID 统一从 JWT 登录上下文获取。
+- 收藏和取消收藏后，根据有效收藏记录重新统计并同步更新 `game.favorite_count`。
+- 取消收藏通过将收藏记录 `status` 修改为 0 实现，再次收藏时恢复原记录，兼容 `(user_id, game_id)` 唯一索引。
+
 ## v0.6.0 - 游戏评论模块
 
 ### Added

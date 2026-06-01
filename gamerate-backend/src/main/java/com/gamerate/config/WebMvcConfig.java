@@ -22,6 +22,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/api/ratings/**",
                         "/api/comments",
                         "/api/comments/**",
+                        "/api/favorites",
+                        "/api/favorites/**",
                         "/api/admin/**"
                 )
                 .excludePathPatterns(
