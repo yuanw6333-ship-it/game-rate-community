@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## v0.8.0 - 游戏排行榜模块
+
+### Added
+
+- 新增排行榜 Service、VO 和 Controller。
+- 新增高分榜接口 `GET /api/rankings/top-score`。
+- 新增热门榜接口 `GET /api/rankings/popular`。
+- 新增收藏榜接口 `GET /api/rankings/favorite`。
+- 新增评论榜接口 `GET /api/rankings/comment`。
+- 新增新游榜接口 `GET /api/rankings/new`。
+- 新增排行榜模块接口文档和测试记录。
+
+### Changed
+
+- 排行榜统一只展示正常上架游戏，并使用 `PageResult<GameRankingVO>` 分页返回。
+- 热门榜当前按 `view_count` 降序排列，综合热度计算保留为后续优化方向。
+
 ## v0.7.0 - 游戏收藏模块
 
 ### Added
